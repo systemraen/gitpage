@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Emergent Simulation Engine (Aura's Winds)</title>
+</head>
+<body>
+  <h1>The Emergent Simulation Engine (Aura's Winds)</h1>
+
+  <h2>Overview</h2>
+  <p>A specialized game engine written in Rust, designed for creating decentralized, neural-driven MMOs where players construct their own logic, automation, and agents using in-world programming systems. The engine emphasizes emergent gameplay, fluid voxel environments, neural inference, and decentralized server architecture.</p>
+
+  <h2>Key Features</h2>
+  <ul>
+    <li><strong>Player-Created Logic Systems</strong>: In-world circuit programming and portable logic via "corescripts."</li>
+    <li><strong>Neural-Driven Systems</strong>: NPC behavior, world simulation, bot control, and optimization powered by neural networks.</li>
+    <li><strong>Dual-Mode Rendering</strong>: Seamless 2D topographical and 3D fluid voxel visualization.</li>
+    <li><strong>Decentralized Architecture</strong>: Instance-based world model with optional inter-world communication and asset sharing.</li>
+    <li><strong>Emergent Gameplay</strong>: No classes or roles; gameplay emerges from world generation, player choices, and programmable systems.</li>
+    <li><strong>Inclusive Input Support</strong>: Controller, keyboard/mouse, touchpad, custom input devices, and VR systems.</li>
+  </ul>
+
+  <h2>Core Architecture</h2>
+
+  <h3>ECS-Based Design</h3>
+  <ul>
+    <li>Uses a modular Entity Component System for all game logic.</li>
+    <li>Core Components: <code>Transform</code>, <code>BotBrain</code>, <code>Corescript</code>, <code>CircuitBoard</code>, <code>NeuralModule</code>, <code>StatBlock</code>, <code>Renderer3D</code>, <code>Renderer2D</code>, <code>Inventory</code>, <code>WorldAnchor</code>.</li>
+    <li>System Categories: Physics, Circuit Logic, Inference, Rendering, Worldgen, Input, Networking.</li>
+  </ul>
+
+  <h3>Simulation Model</h3>
+  <ul>
+    <li>Hybrid timing system:
+      <ul>
+        <li><strong>Delta-time math-based</strong> updates for movement, physics, and neural inference.</li>
+        <li><strong>Fixed-tick</strong> updates for deterministic logic systems (circuits, event ordering).</li>
+      </ul>
+    </li>
+    <li>Time exposed as a first-class ECS resource for debugging, replay, and control.</li>
+  </ul>
+
+  <h3>Input Abstraction</h3>
+  <ul>
+    <li>Unified input resource handles multiple devices.</li>
+    <li>Remappable and extensible binding system.</li>
+    <li>Plug-in support for custom input hardware and VR motion controllers.</li>
+  </ul>
+
+  <h3>Rendering Pipeline</h3>
+  <ul>
+    <li>Native: OpenGL + Vulkan</li>
+    <li>Web: WebGL2 (fallback), WebGPU (experimental)</li>
+    <li>Fluid voxel visuals via SDFs or marching cubes.</li>
+    <li>2D overlays and alternate views for topographical perspective.</li>
+    <li>UI powered by <code>egui</code>.</li>
+    <li>Planned VR rendering support with stereoscopic views and head tracking.</li>
+  </ul>
+
+  <h3>Audio</h3>
+  <ul>
+    <li>Sound handled via <strong>Kira</strong> (native)</li>
+    <li>Planned: <code>wasm-bindgen</code> WebAudio backend for WebAssembly support.</li>
+    <li>Features: 3D positional audio, ECS-driven playback, layered sounds.</li>
+  </ul>
+
+  <h3>Neural Network Runtime</h3>
+  <ul>
+    <li>Supports ONNX/TorchScript models for inference.</li>
+    <li>Native backend: <code>tch-rs</code> or <code>burn</code>.</li>
+    <li>Web fallback: <code>tract</code> or custom lightweight inference runtime.</li>
+    <li>Modular plug-in interface for sensor/action mapping.</li>
+  </ul>
+
+  <h3>Corescripts & Circuits</h3>
+  <ul>
+    <li><strong>Corescripts</strong>: Portable logic artifacts; slabs holding compact interpretable programs. Bots read and execute at runtime.</li>
+    <li><strong>Circuit Programming</strong>: Visual, physical logic built in-world using gates, latches, clocks, etc.</li>
+    <li>Bots can execute logic from circuits or corescripts; hybrid systems encouraged.</li>
+  </ul>
+
+  <h3>Networking Model</h3>
+  <ul>
+    <li>Instance-per-server model with optional decentralized interop.</li>
+    <li>Worlds can share assets, messages, and player movement based on explicit trust or standard protocol layers.</li>
+    <li>Protocol: WebSocket or UDP + optional asset diffing.</li>
+    <li>Hybrid model supports both isolated and interoperable instances.</li>
+  </ul>
+
+  <h3>World Generation</h3>
+  <ul>
+    <li>Procedural with neural-assisted content generation.</li>
+    <li>Voxel terrain, structures, NPCs, and environmental logic.</li>
+    <li>World seeds may include behavior modifiers, model weights, or biome-level rule sets.</li>
+  </ul>
+
+  <h3>Persistence & Assets</h3>
+  <ul>
+    <li>Per-instance persistence model.</li>
+    <li>Asset system supports importing bots, terrain, and corescripts.</li>
+    <li>Modding supported via Rust crates or data-driven DSL.</li>
+    <li>Versioned data formats for inter-instance compatibility.</li>
+  </ul>
+
+  <h2>Development Goals</h2>
+  <ul>
+    <li>Deterministic simulation for reproducibility.</li>
+    <li>Emergent gameplay through systems rather than scripts.</li>
+    <li>Cross-platform compatibility: Desktop, Web, and VR.</li>
+    <li>Console and mobile platform support planned for future releases.</li>
+    <li>Fully in-world player automation.</li>
+    <li>Extensible neural system with safe sandboxing.</li>
+    <li>Deterministic simulation for reproducibility.</li>
+  </ul>
+
+  <h2>To Be Determined / Deferred</h2>
+  <ul>
+    <li>Security/sandbox model for corescripts.</li>
+    <li>Tooling: external editor, visualization, debug tooling.</li>
+    <li>Performance targets per instance (players, bots, ticks).</li>
+    <li>Visual design language for avatar and world styling.</li>
+    <li>VR user interface design and performance testing.</li>
+  </ul>
+
+  <hr>
+  <p><em>This document describes the initial specification for "The Emergent Simulation Engine." Naming, module boundaries, and certain implementations are subject to change as the system evolves.</em></p>
+  <p><em>Generated with the assistance of ChatGPT</em></p>
+</body>
+</html>
